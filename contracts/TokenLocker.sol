@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract RuinToken {
+contract TokenLocker {
     // 事件
     event TokenLockStart(address indexed beneficiary, address indexed token, uint256 startTime, uint256 lockTime);
     event Release(address indexed beneficiary, address indexed token, uint256 releaseTime, uint256 amount);

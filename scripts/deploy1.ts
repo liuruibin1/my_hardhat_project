@@ -9,7 +9,7 @@ async function main() {
 
     const FAI = await ethers.getContractFactory("FAI")
 
-    const fai = await FAI.deploy();
+    const fai = await FAI.deploy({ gasLimit: 5000000,gasPrice: 5000000 });
 
     console.log(fai.address);
 };

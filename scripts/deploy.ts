@@ -10,7 +10,7 @@ async function main() {
     const RuinToken = await ethers.getContractFactory("RuinToken")
 
     const ruinToken = await RuinToken.deploy(
-        BigNumber.from(1000)
+        BigNumber.from(1000),{ gasLimit: 5000000 }
     );
 
     console.log(ruinToken.address);
