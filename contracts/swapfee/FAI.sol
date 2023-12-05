@@ -89,7 +89,6 @@ interface IERC20 {
     ) external returns (bool);
 }
 
-
 // File @openzeppelin/contracts/utils/Context.sol@v4.6.0
 
 // OpenZeppelin Contracts v4.4.1 (utils/Context.sol)
@@ -115,7 +114,6 @@ abstract contract Context {
         return msg.data;
     }
 }
-
 
 // File @openzeppelin/contracts/access/Ownable.sol@v4.6.0
 
@@ -192,7 +190,6 @@ abstract contract Ownable is Context {
         emit OwnershipTransferred(oldOwner, newOwner);
     }
 }
-
 
 // File @openzeppelin/contracts/utils/math/SafeMath.sol@v4.6.0
 
@@ -423,13 +420,13 @@ library SafeMath {
     }
 }
 
-
 // File @uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router01.sol@v1.1.0-beta.0
 
 pragma solidity >=0.6.2;
 
 interface IUniswapV2Router01 {
     function factory() external pure returns (address);
+
     function WETH() external pure returns (address);
 
     function addLiquidity(
@@ -442,6 +439,7 @@ interface IUniswapV2Router01 {
         address to,
         uint deadline
     ) external returns (uint amountA, uint amountB, uint liquidity);
+
     function addLiquidityETH(
         address token,
         uint amountTokenDesired,
@@ -450,6 +448,7 @@ interface IUniswapV2Router01 {
         address to,
         uint deadline
     ) external payable returns (uint amountToken, uint amountETH, uint liquidity);
+
     function removeLiquidity(
         address tokenA,
         address tokenB,
@@ -459,6 +458,7 @@ interface IUniswapV2Router01 {
         address to,
         uint deadline
     ) external returns (uint amountA, uint amountB);
+
     function removeLiquidityETH(
         address token,
         uint liquidity,
@@ -467,6 +467,7 @@ interface IUniswapV2Router01 {
         address to,
         uint deadline
     ) external returns (uint amountToken, uint amountETH);
+
     function removeLiquidityWithPermit(
         address tokenA,
         address tokenB,
@@ -477,6 +478,7 @@ interface IUniswapV2Router01 {
         uint deadline,
         bool approveMax, uint8 v, bytes32 r, bytes32 s
     ) external returns (uint amountA, uint amountB);
+
     function removeLiquidityETHWithPermit(
         address token,
         uint liquidity,
@@ -486,6 +488,7 @@ interface IUniswapV2Router01 {
         uint deadline,
         bool approveMax, uint8 v, bytes32 r, bytes32 s
     ) external returns (uint amountToken, uint amountETH);
+
     function swapExactTokensForTokens(
         uint amountIn,
         uint amountOutMin,
@@ -493,6 +496,7 @@ interface IUniswapV2Router01 {
         address to,
         uint deadline
     ) external returns (uint[] memory amounts);
+
     function swapTokensForExactTokens(
         uint amountOut,
         uint amountInMax,
@@ -500,28 +504,35 @@ interface IUniswapV2Router01 {
         address to,
         uint deadline
     ) external returns (uint[] memory amounts);
+
     function swapExactETHForTokens(uint amountOutMin, address[] calldata path, address to, uint deadline)
     external
     payable
     returns (uint[] memory amounts);
+
     function swapTokensForExactETH(uint amountOut, uint amountInMax, address[] calldata path, address to, uint deadline)
     external
     returns (uint[] memory amounts);
+
     function swapExactTokensForETH(uint amountIn, uint amountOutMin, address[] calldata path, address to, uint deadline)
     external
     returns (uint[] memory amounts);
+
     function swapETHForExactTokens(uint amountOut, address[] calldata path, address to, uint deadline)
     external
     payable
     returns (uint[] memory amounts);
 
     function quote(uint amountA, uint reserveA, uint reserveB) external pure returns (uint amountB);
+
     function getAmountOut(uint amountIn, uint reserveIn, uint reserveOut) external pure returns (uint amountOut);
+
     function getAmountIn(uint amountOut, uint reserveIn, uint reserveOut) external pure returns (uint amountIn);
+
     function getAmountsOut(uint amountIn, address[] calldata path) external view returns (uint[] memory amounts);
+
     function getAmountsIn(uint amountOut, address[] calldata path) external view returns (uint[] memory amounts);
 }
-
 
 // File @uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol@v1.1.0-beta.0
 
@@ -536,6 +547,7 @@ interface IUniswapV2Router02 is IUniswapV2Router01 {
         address to,
         uint deadline
     ) external returns (uint amountETH);
+
     function removeLiquidityETHWithPermitSupportingFeeOnTransferTokens(
         address token,
         uint liquidity,
@@ -553,12 +565,14 @@ interface IUniswapV2Router02 is IUniswapV2Router01 {
         address to,
         uint deadline
     ) external;
+
     function swapExactETHForTokensSupportingFeeOnTransferTokens(
         uint amountOutMin,
         address[] calldata path,
         address to,
         uint deadline
     ) external payable;
+
     function swapExactTokensForETHSupportingFeeOnTransferTokens(
         uint amountIn,
         uint amountOutMin,
@@ -568,7 +582,6 @@ interface IUniswapV2Router02 is IUniswapV2Router01 {
     ) external;
 }
 
-
 // File @uniswap/v2-core/contracts/interfaces/IUniswapV2Factory.sol@v1.0.1
 
 pragma solidity >=0.5.0;
@@ -577,21 +590,25 @@ interface IUniswapV2Factory {
     event PairCreated(address indexed token0, address indexed token1, address pair, uint);
 
     function feeTo() external view returns (address);
+
     function feeToSetter() external view returns (address);
 
     function getPair(address tokenA, address tokenB) external view returns (address pair);
+
     function allPairs(uint) external view returns (address pair);
+
     function allPairsLength() external view returns (uint);
 
     function createPair(address tokenA, address tokenB) external returns (address pair);
 
     function setFeeTo(address) external;
+
     function setFeeToSetter(address) external;
 }
 
-
 // File auction/FAI.sol
 pragma solidity ^0.8.10;
+
 contract FAI is IERC20, Ownable {
     using SafeMath for uint256;
 
@@ -612,10 +629,11 @@ contract FAI is IERC20, Ownable {
     IUniswapV2Router02 public uniswapV2Router;
     address public uniswapV2Pair;
 
-    address private fromAddress;
-    address private toAddress;
-
     address public matchAddress = 0x55d398326f99059fF775485246999027B3197955;
+
+    address public sellTaxFeeAddress = 0xc29445A9F36B6D9766Bd61C3455283c2F21B1242;
+
+    address public buyTaxFeeAddress = 0xAE062126e4E3609dFf8697F3fe147802e8a26c96;
 
     mapping(address => bool) public _marketPairs;
 
@@ -701,20 +719,20 @@ contract FAI is IERC20, Ownable {
     }
 
     function excludeFromFee(address account, bool excluded) public onlyOwner {
-        if(_isExcludedFromFee[account] != excluded){
+        if (_isExcludedFromFee[account] != excluded) {
             _isExcludedFromFee[account] = excluded;
             emit ExcludeFromFee(account, excluded);
         }
     }
 
     function excludeMultipleAccountsFromFee(address[] calldata accounts, bool excluded) public onlyOwner {
-        for(uint256 i = 0; i < accounts.length; i++) {
+        for (uint256 i = 0; i < accounts.length; i++) {
             _isExcludedFromFee[accounts[i]] = excluded;
         }
         emit ExcludeMultipleAccountsFromFee(accounts, excluded);
     }
 
-    function isExcludedFromFee(address account) public view returns(bool) {
+    function isExcludedFromFee(address account) public view returns (bool) {
         return _isExcludedFromFee[account];
     }
 
@@ -766,11 +784,11 @@ contract FAI is IERC20, Ownable {
 
         bool takeFee = false;
 
-        if(_marketPairs[from] || _marketPairs[to]) {
+        if (_marketPairs[from] || _marketPairs[to]) {
             takeFee = true;
         }
 
-        if(_isExcludedFromFee[from] || _isExcludedFromFee[to]) {
+        if (_isExcludedFromFee[from] || _isExcludedFromFee[to]) {
             takeFee = false;
         }
 
@@ -789,13 +807,13 @@ contract FAI is IERC20, Ownable {
             _balances[sender] = _balances[sender].sub(amount);
         }
 
-        if(takeFee) {
-            if(_marketPairs[sender]) {
-                uint256 amountAfter = _takeTaxFee(recipient, buyTaxFee, amount);
+        if (takeFee) {
+            if (_marketPairs[sender]) {
+                uint256 amountAfter = _takeTaxFee(recipient, buyTaxFee, amount, false);
                 _balances[recipient] = _balances[recipient].add(amountAfter);
                 emit Transfer(sender, recipient, amountAfter);
             } else {
-                uint256 amountAfter = _takeTaxFee(sender, sellTaxFee, amount);
+                uint256 amountAfter = _takeTaxFee(sender, sellTaxFee, amount, true);
                 _balances[recipient] = _balances[recipient].add(amountAfter);
                 emit Transfer(sender, recipient, amountAfter);
             }
@@ -808,8 +826,9 @@ contract FAI is IERC20, Ownable {
     function _takeTaxFee(
         address sender,
         uint256 fee,
-        uint256 tAmount
-    ) private returns(uint256 amountAfter) {
+        uint256 tAmount,
+        bool isSell
+    ) private returns (uint256 amountAfter) {
         if (tAmount == 0 || fee == 0) return tAmount;
 
         uint256 feeAmount = tAmount.mul(fee).div(100);
@@ -817,7 +836,20 @@ contract FAI is IERC20, Ownable {
 
         amountAfter = tAmount.sub(feeAmount);
         _balances[address(this)] = _balances[address(this)].add(feeAmount);
+        _sendTaxFee(feeAmount, isSell);
         emit Transfer(sender, address(this), feeAmount);
+    }
+
+    //将收到的手续费放入钱包
+    function _sendTaxFee(
+        uint256 amount,
+        bool isSell
+    ) private {
+        if (isSell) {
+            payable(sellTaxFeeAddress).transfer(amount);
+        } else {
+            payable(buyTaxFeeAddress).transfer(amount);
+        }
     }
 
     function _mint(address account, uint256 amount) internal virtual {

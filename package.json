@@ -4,8 +4,11 @@
   "scripts": {
     "node": "npx hardhat node",
     "deploy-sepolia": "yarn hardhat run --network sepolia scripts/deploy.ts",
+    "deploy2-bscTestnet": "npx hardhat run scripts/deploy2.ts --network bscTestnet --verbose",
+    "deploy1-bscTestnet": "npx hardhat run scripts/deploy1.ts --network bscTestnet --verbose",
     "compile": "npx hardhat clean & npx hardhat compile --force",
-    "verify-sepolia": "yarn hardhat verify --network sepolia --constructor-args arg/RuinTokenArguments.ts 0x754C3eDa1ab9cadcD0939EbF6424b4d0609F28D5"
+    "verify-sepolia": "yarn hardhat verify --network sepolia --constructor-args arg/RuinTokenArguments.ts 0x754C3eDa1ab9cadcD0939EbF6424b4d0609F28D5",
+    "verify-bscTestnet": " yarn hardhat verify --network bscTestnet 0x5a9FC667898030991B3892561d350b6D08F06c60"
   },
   "proxy": "http://localhost:7890",
   "dependencies": {

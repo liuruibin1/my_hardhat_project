@@ -6,13 +6,13 @@ async function main() {
     const signers = await ethers.getSigners();
     console.log("Deploying contracts with the account:", signers[0].address);
 
-    const Fai = await ethers.getContractFactory("FAI")
+    const FaiReceiver = await ethers.getContractFactory("FaiReceiver")
 
-    const fai = await Fai.deploy({gasLimit: 5000000, gasPrice: 500000000000});
+    const faiReceiver = await FaiReceiver.deploy({ gasLimit: 5000000 });
 
-    await fai.deployed();
+    await faiReceiver.deployed();
 
-    console.log(fai.address);
+    console.log(faiReceiver.address);
 };
 
 main()
