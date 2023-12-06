@@ -629,7 +629,17 @@ contract FAI is IERC20, Ownable {
     IUniswapV2Router02 public uniswapV2Router;
     address public uniswapV2Pair;
 
-    address public matchAddress = 0x55d398326f99059fF775485246999027B3197955;
+
+//    address private constant PANCAKE_ROUTER = 0xD99D1c33F9fC3444f8101754aBC46c52416550D1; // PancakeSwap Testnet Router address
+    address private constant PANCAKE_ROUTER = 0x05fF2B0DB69458A0750badebc4f9e13aDd608C7F; // PancakeSwap Router address
+
+    address private constant USDT_ADDRESS = 0x55d398326f99059fF775485246999027B3197955; // USDT token address
+//    address private constant USDT_ADDRESS = 0x337610d27c682E347C9cD60BD4b3b107C9d34dDd; // USDT token Testnet address
+
+
+
+    address public matchAddress = 0x55d398326f99059fF775485246999027B3197955; // 主网
+//    address public matchAddress = 0x87F33c19c580079E805caDB2D3555770e0477c0e;
 
     address public sellTaxFeeAddress = 0xc29445A9F36B6D9766Bd61C3455283c2F21B1242;
 
@@ -645,7 +655,8 @@ contract FAI is IERC20, Ownable {
         _mint(msg.sender, _totalSupply * (10 ** decimals()));
 
         IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(
-            0x10ED43C718714eb63d5aA57B78B54704E256024E
+            0x10ED43C718714eb63d5aA57B78B54704E256024E //主网
+//            0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3 //测试
         );
 
         uniswapV2Pair = IUniswapV2Factory(_uniswapV2Router.factory())
@@ -846,9 +857,36 @@ contract FAI is IERC20, Ownable {
         bool isSell
     ) private {
         if (isSell) {
-            payable(sellTaxFeeAddress).transfer(amount);
+            address[] memory path = new address[](2);
+            path[0] = address(this);
+            path[1] = USDT_ADDRESS;
+
+            uint[] memory amounts = IUniswapV2Router02(PANCAKE_ROUTER).swapExactTokensForETH(
+                amount,
+                0, // accept any amount of BNB
+                path,
+                address(this),
+                block.timestamp
+            );
+
+            uint256 convertedAmount = amounts[1];
+            payable(sellTaxFeeAddress).transfer(convertedAmount);
         } else {
-            payable(buyTaxFeeAddress).transfer(amount);
+            // Step 2: Perform the swap
+            address[] memory path = new address[](2);
+            path[0] = address(this);
+            path[1] = USDT_ADDRESS;
+
+            uint[] memory amounts = IUniswapV2Router02(PANCAKE_ROUTER).swapExactTokensForETH(
+                amount,
+                0, // accept any amount of BNB
+                path,
+                address(this),
+                block.timestamp
+            );
+
+            uint256 convertedAmount = amounts[1];
+            payable(buyTaxFeeAddress).transfer(convertedAmount);
         }
     }
 

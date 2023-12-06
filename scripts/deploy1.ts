@@ -8,7 +8,12 @@ async function main() {
 
     const Fai = await ethers.getContractFactory("FAI")
 
-    const fai = await Fai.deploy({gasLimit: 5000000, gasPrice: 500000000000});
+    // 通过 ethers.provider 获取当前网络上的 gas 估算器
+    const gasEstimate = await ethers.provider.estimateGas(Fai.getDeployTransaction());
+
+    console.log("Estimated gas for deployment:", gasEstimate.toString());
+
+    const fai = await Fai.deploy({gasLimit: 7500000});
 
     await fai.deployed();
 
