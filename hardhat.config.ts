@@ -14,11 +14,11 @@ const config: HardhatUserConfig = {
     etherscan: {
         // Your API key for Etherscan
         // Obtain one at [https://etherscan.io/](https://etherscan.io/)
-        // apiKey: process.env.ETHERSCAN_API_KEY,   //以太坊主网验证用api key
-        apiKey: { bsc: process.env.BSCRSCAN_API_KEY},
+        apiKey: process.env.ETHERSCAN_API_KEY,   //以太坊主网验证用api key
+        // apiKey: { bsc: process.env.BSCRSCAN_API_KEY},
     },
     solidity: {
-        compilers: [{version: "0.8.10", settings: {}}],
+        compilers: [{version: "0.8.20", settings: {}}],
     },
     networks: {
         hardhat: {},
